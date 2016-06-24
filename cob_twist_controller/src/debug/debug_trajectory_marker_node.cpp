@@ -1,4 +1,4 @@
-/*
+/*!
  *****************************************************************
  * \file
  *
@@ -25,7 +25,7 @@
  *   Debug node visualizing the route of the target frame, the actual chain_tip frame as well as the base frame through visualization_msgs/Marker.
  ****************************************************************/
 
-#include <string.h>
+#include <string>
 
 #include <ros/ros.h>
 #include <tf/tf.h>
@@ -57,7 +57,7 @@ public:
 
     int init()
     {
-        if(!nh_.getParam("root_frame", this->root_frame_))
+        if (!nh_.getParam("root_frame", this->root_frame_))
         {
             ROS_ERROR("Failed to get parameter \"root_frame\".");
             return -1;
@@ -65,28 +65,28 @@ public:
 
         this->base_link_ = "base_link";
 
-        if(!nh_.getParam("chain_tip_link", this->chain_tip_link_))
+        if (!nh_.getParam("chain_tip_link", this->chain_tip_link_))
         {
             ROS_ERROR("Failed to get parameter \"chain_tip_link\".");
             return -2;
         }
 
-        if(!nh_.getParam("frame_tracker/tracking_frame", this->target_frame_))
+        if (!nh_.getParam("frame_tracker/target_frame", this->target_frame_))
         {
-            ROS_ERROR_STREAM("Please provide a 'frame_tracker/tracking_frame' parameter in this node's namespace.");
+            ROS_ERROR_STREAM("Please provide a 'frame_tracker/target_frame' parameter in this node's namespace.");
             return -3;
         }
 
         marker_pub_ = this->nh_.advertise<visualization_msgs::MarkerArray>("trajectory_marker", 1, true);
         marker_timer_ = this->nh_.createTimer(ros::Duration(0.1), &DebugTrajectoryMarker::publishMarker, this);
 
-        while(marker_pub_.getNumSubscribers() < 1)
+        while (marker_pub_.getNumSubscribers() < 1)
         {
-            if(ros::isShuttingDown())
+            if (ros::isShuttingDown())
             {
                 return -4;
             }
-            ROS_WARN_STREAM("Please create a subscriber to '" + this->nh_.getNamespace() + "/trajectory_marker' topic (Type: visualization_msgs/MarkerArray)");
+            ROS_WARN_STREAM_ONCE("Please create a subscriber to '" + this->nh_.getNamespace() + "/trajectory_marker' topic (Type: visualization_msgs/MarkerArray)");
             ros::Duration(1.0).sleep();
         }
 
@@ -117,7 +117,7 @@ public:
 
         if(tf_listener_.frameExists(tf_listener_.resolve(this->chain_tip_link_)))
         {
-            if(tip_marker_.points.size() > 10000)
+            if (tip_marker_.points.size() > 10000)
             {
                 tip_marker_.points.clear();
             }
@@ -128,7 +128,7 @@ public:
 
         if(tf_listener_.frameExists(tf_listener_.resolve(this->target_frame_)))
         {
-            if(target_marker_.points.size() > 10000)
+            if (target_marker_.points.size() > 10000)
             {
                 target_marker_.points.clear();
             }
@@ -139,9 +139,9 @@ public:
 
         if(tf_listener_.frameExists(tf_listener_.resolve(this->base_link_)))
         {
-            if(nh_.param("twist_controller/kinematic_extension", 0) == cob_twist_controller::TwistController_BASE_ACTIVE)
+            if (nh_.param("twist_controller/kinematic_extension", 0) == cob_twist_controller::TwistController_BASE_ACTIVE)
             {
-                if(base_marker_.points.size() > 10000)
+                if (base_marker_.points.size() > 10000)
                 {
                     base_marker_.points.clear();
                 }
@@ -151,7 +151,7 @@ public:
             }
         }
 
-        if(!marker_array.markers.empty())
+        if (!marker_array.markers.empty())
         {
             this->marker_pub_.publish(marker_array);
         }
@@ -190,15 +190,12 @@ public:
         }
         catch (tf::TransformException& ex)
         {
-            ROS_ERROR("%s",ex.what());
+            ROS_ERROR("%s", ex.what());
         }
 
         return point;
     }
-
 };
-
-
 
 
 int main(int argc, char** argv)

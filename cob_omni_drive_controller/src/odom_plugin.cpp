@@ -12,8 +12,6 @@
 
 #include "GeomController.h"
 
-#include <tf/transform_listener.h>
-
 namespace cob_omni_drive_controller
 {
 
@@ -47,8 +45,8 @@ public:
 
         if(broadcast_tf){
             std::string tf_prefix = tf::getPrefixParam(controller_nh);
-            odom_tf_.header.frame_id = tf::resolve(tf_prefix,"odom_combined");
-            odom_tf_.child_frame_id = tf::resolve(tf_prefix,"base_footprint");
+            odom_tf_.header.frame_id = tf::resolve(tf_prefix,frame_id);
+            odom_tf_.child_frame_id = tf::resolve(tf_prefix,child_frame_id);
 
             tf_broadcast_odometry_.reset(new tf::TransformBroadcaster);
         }
@@ -103,7 +101,7 @@ private:
     UndercarriageGeom::PlatformState platform_state_;
 
     ros::Publisher topic_pub_odometry_;                 // calculated (measured) velocity, rotation and pose (odometry-based) for the robot
-    ros::ServiceServer service_reset_;			// service to reset odometry to zero
+    ros::ServiceServer service_reset_;                  // service to reset odometry to zero
 
     boost::scoped_ptr<tf::TransformBroadcaster> tf_broadcast_odometry_;    // according transformation for the tf broadcaster
     boost::scoped_ptr<OdometryTracker> odom_tracker_;

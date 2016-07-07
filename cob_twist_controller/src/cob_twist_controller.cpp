@@ -94,7 +94,7 @@ bool CobTwistController::initialize()
         return false;
     }
 
-    ///parse robot_description and set velocity limits
+    /// parse robot_description and set velocity limits
     urdf::Model model;
     if (!model.initParam(robot_description_param))
     {
@@ -421,7 +421,7 @@ void CobTwistController::visualizeTwist(KDL::Twist twist)
     tf::StampedTransform transform_tf;
     try
     {
-        tf_listener_.lookupTransform(tf_listener_.resolve(twist_controller_params_.chain_base_link), tf_listener_.resolve(tracking_frame), ros::Time(0), transform_tf);
+        tf_listener_.lookupTransform(tf_listener_.resolve(twist_controller_params_.chain_base_link), tracking_frame, ros::Time(0), transform_tf);
     }
     catch (tf::TransformException& ex)
     {

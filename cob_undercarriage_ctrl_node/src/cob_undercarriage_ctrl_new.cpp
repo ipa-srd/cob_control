@@ -32,23 +32,23 @@
  *     * Redistributions in binary form must reproduce the above copyright
  *       notice, this list of conditions and the following disclaimer in the
  *       documentation and/or other materials provided with the distribution.
- *     * Neither the name of the Fraunhofer Institute for Manufacturing 
+ *     * Neither the name of the Fraunhofer Institute for Manufacturing
  *       Engineering and Automation (IPA) nor the names of its
  *       contributors may be used to endorse or promote products derived from
  *       this software without specific prior written permission.
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License LGPL as 
- * published by the Free Software Foundation, either version 3 of the 
+ * it under the terms of the GNU Lesser General Public License LGPL as
+ * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License LGPL for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public 
- * License LGPL along with this program. 
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License LGPL along with this program.
  * If not, see <http://www.gnu.org/licenses/>.
  *
  ****************************************************************/
@@ -112,7 +112,7 @@ class NodeClass
     bool is_initialized_bool_;               // flag wether node is already up and running
     bool is_ucarr_geom_initialized_bool_;
     bool broadcast_tf_;                      // flag wether to broadcast the tf from odom to base_link
-    int drive_chain_diagnostic_;             // flag whether base drive chain is operating normal 
+    int drive_chain_diagnostic_;             // flag whether base drive chain is operating normal
     ros::Time last_time_;                    // time Stamp for last odometry measurement
     ros::Time joint_state_odom_stamp_;       // time stamp of joint states used for current odometry calc
     double sample_time_, timeout_;
@@ -142,7 +142,7 @@ class NodeClass
       sample_time_ = 0.020; // TODO: read from parameter server
       // set status of drive chain to WARN by default
       drive_chain_diagnostic_ = diagnostic_status_lookup_.OK; //WARN; <- THATS FOR DEBUGGING ONLY!
-      has_target = false;     
+      has_target = false;
 
       // Parameters are set within the launch file
       // read in timeout for watchdog stopping the controller.
@@ -237,7 +237,7 @@ class NodeClass
 
 
     // Destructor
-    ~NodeClass() 
+    ~NodeClass()
     {
       topic_sub_CMD_pltf_twist_.shutdown();
       topic_sub_EM_stop_state_.shutdown();
@@ -350,7 +350,7 @@ class NodeClass
       // assign right size to JointState data containers
       //joint_state_cmd.set_name_size(m_iNumMotors);
       joint_state_cmd.desired.positions.resize(m_iNumJoints);
-      joint_state_cmd.desired.velocities.resize(m_iNumJoints);            
+      joint_state_cmd.desired.velocities.resize(m_iNumJoints);
       //joint_state_cmd.desired.effort.resize(m_iNumJoints);
 
       // TODO: Generic adapation reqiuerd for joint_names when base_drive_chain will be updated
@@ -372,7 +372,7 @@ class NodeClass
         //joint_state_cmd.desired.effort[i] = 0.0;
       }
 
-      // set status of underlying drive chain to member variable 
+      // set status of underlying drive chain to member variable
       drive_chain_diagnostic_ = msg->level;
 
       // if controller is already started up ...
@@ -502,7 +502,7 @@ int main(int argc, char** argv)
     throw std::runtime_error("Undercarriage control initialization failed, check yaml-Files!");
   }
 
-  /* 
+  /*
      CALLBACKS being executed are:
      - actual motor values -> calculating direct kinematics and doing odometry (topicCallbackJointControllerStates)
      - timer callback -> calculate controller step at a rate of sample_time_ (timerCallbackCtrlStep)
@@ -562,7 +562,7 @@ void NodeClass::CalcCtrlStep()
     //joint_state_cmd.set_name_size(m_iNumJoints);
 
     joint_state_cmd.desired.positions.resize(m_iNumJoints);
-    joint_state_cmd.desired.velocities.resize(m_iNumJoints);            
+    joint_state_cmd.desired.velocities.resize(m_iNumJoints);
     //joint_state_cmd.effort.resize(m_iNumJoints);
     joint_state_cmd.joint_names.push_back("fl_caster_r_wheel_joint");
     joint_state_cmd.joint_names.push_back("fl_caster_rotation_joint");
@@ -669,6 +669,3 @@ void NodeClass::setEMStopActive(bool bEMStopActive)
 //    else
 //        std::cout << "EMStop: " << "Inactive" << std::endl;
 }
-
-
-

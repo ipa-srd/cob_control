@@ -82,12 +82,12 @@ CollisionVelocityFilter::CollisionVelocityFilter(costmap_2d::Costmap2DROS * cost
   // read parameters from parameter server
   // parameters from costmap
   if (!pnh_.hasParam("global_frame"))
-    ROS_WARN("Used default parameter for global_frame [/base_link]");
-  pnh_.param("global_frame", global_frame_, std::string("/base_link"));
+    ROS_WARN("Used default parameter for global_frame [base_link]");
+  pnh_.param("global_frame", global_frame_, std::string("base_link"));
 
   if (!pnh_.hasParam("robot_base_frame"))
-    ROS_WARN("Used default parameter for robot_frame [/base_link]");
-  pnh_.param("robot_base_frame", robot_frame_, std::string("/base_link"));
+    ROS_WARN("Used default parameter for robot_frame [base_link]");
+  pnh_.param("robot_base_frame", robot_frame_, std::string("base_link"));
 
   if (!pnh_.hasParam("influence_radius"))
     ROS_WARN("Used default parameter for influence_radius [1.5 m]");
@@ -644,4 +644,3 @@ int main(int argc, char** argv)
 
   return 0;
 }
-

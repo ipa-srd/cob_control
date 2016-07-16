@@ -182,11 +182,11 @@ KDL::Jacobian KinematicExtensionBaseActive::adjustJacobian(const KDL::Jacobian& 
     try
     {
         ros::Time now = ros::Time(0);
-        tf_listener_.waitForTransform("base_link", params_.chain_tip_link, now, ros::Duration(0.5));
-        tf_listener_.lookupTransform("base_link", params_.chain_tip_link,  now, bl_transform_ct);
+        tf_listener_.waitForTransform(tf_listener_.resolve("base_link"), params_.chain_tip_link, now, ros::Duration(0.5));
+        tf_listener_.lookupTransform(tf_listener_.resolve("base_link"), params_.chain_tip_link,  now, bl_transform_ct);
 
-        tf_listener_.waitForTransform(params_.chain_base_link, "base_link", now, ros::Duration(0.5));
-        tf_listener_.lookupTransform(params_.chain_base_link, "base_link", now, cb_transform_bl);
+        tf_listener_.waitForTransform(tf_listener_.resolve(params_.chain_base_link), "base_link", now, ros::Duration(0.5));
+        tf_listener_.lookupTransform(tf_listener_.resolve(params_.chain_base_link), "base_link", now, cb_transform_bl);
     }
     catch (tf::TransformException& ex)
     {
@@ -280,4 +280,3 @@ void KinematicExtensionBaseActive::processResultExtension(const KDL::JntArray& q
     base_vel_pub_.publish(base_vel_msg);
 }
 /* END KinematicExtensionBaseActive **********************************************************************************************/
-

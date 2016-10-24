@@ -45,14 +45,14 @@ public:
             return false;
         }
         timeout_.fromSec(timeout);
-        
+
         pub_divider_ =  controller_nh.param("pub_divider",0);
 
         wheel_commands_.resize(wheel_states_.size());
         twist_subscriber_ = controller_nh.subscribe("command", 1, &WheelController::topicCallbackTwistCmd, this);
 
         commands_pub_.reset(new realtime_tools::RealtimePublisher<cob_omni_drive_controller::WheelCommands>(controller_nh, "wheel_commands", 5));
-       
+
         commands_pub_->msg_.drive_target_velocity.resize(wheel_states_.size());
         commands_pub_->msg_.steer_target_velocity.resize(wheel_states_.size());
         commands_pub_->msg_.steer_target_position.resize(wheel_states_.size());
@@ -94,7 +94,7 @@ public:
             steer_joints_[i].setCommand(wheel_commands_[i].dVelGearSteerRadS);
             drive_joints_[i].setCommand(wheel_commands_[i].dVelGearDriveRadS);
         }
-        
+
         if(cycles_ < pub_divider_ && (++cycles_) == pub_divider_){
             if(commands_pub_->trylock()){
                 ++(commands_pub_->msg_.header.seq);
@@ -107,7 +107,7 @@ public:
                     commands_pub_->msg_.steer_target_error[i] = wheel_commands_[i].dAngGearSteerRadDelta;
                 }
                 commands_pub_->unlockAndPublish();
-            
+
             }
             cycles_ = 0;
         }
@@ -125,11 +125,11 @@ private:
 
     boost::mutex mutex_;
     ros::Subscriber twist_subscriber_;
-    
+
     boost::scoped_ptr<realtime_tools::RealtimePublisher<cob_omni_drive_controller::WheelCommands> > commands_pub_;
     uint32_t cycles_;
     uint32_t pub_divider_;
-    
+
     ros::Duration timeout_;
     double max_vel_trans_, max_vel_rot_;
 

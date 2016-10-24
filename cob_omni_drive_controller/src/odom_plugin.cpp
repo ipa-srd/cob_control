@@ -42,7 +42,6 @@ public:
         const std::string child_frame_id = controller_nh.param("child_frame_id", std::string("base_footprint"));
         const double cov_pose = controller_nh.param("cov_pose", 0.1);
         const double cov_twist = controller_nh.param("cov_twist", 0.1);
-        std::cout << "tf_prefix = " << tf_prefix << std::endl;
 
 
         odom_tracker_.reset(new OdometryTracker(frame_id, child_frame_id, cov_pose, cov_twist));

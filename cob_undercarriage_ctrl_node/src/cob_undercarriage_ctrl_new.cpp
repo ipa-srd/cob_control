@@ -657,7 +657,7 @@ void NodeClass::setEMStopActive(bool bEMStopActive)
 
     std::vector<UndercarriageCtrl::WheelCommand> wCommands;
     wCommands.assign(m_iNumWheels, UndercarriageCtrl::WheelCommand());
-    
+
     // if emergency stop reset ctrlr to zero
     if(m_bEMStopActive)
     {

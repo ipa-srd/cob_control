@@ -1,6 +1,6 @@
 <package format="2">
   <name>cob_omni_drive_controller</name>
-  <version>0.6.10</version>
+  <version>0.6.11</version>
   <description>The cob_omni_drive_controller package</description>
 
   <maintainer email="mig@ipa.fhg.de">Matthias Gruhler</maintainer>
@@ -11,13 +11,20 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
+  <build_depend>message_generation</build_depend>
+  <build_export_depend>message_runtime</build_export_depend>
+  <exec_depend>message_runtime</exec_depend>
+  
   <depend>angles</depend>
   <depend>boost</depend>
   <depend>controller_interface</depend>
   <depend>geometry_msgs</depend>
   <depend>hardware_interface</depend>
   <depend>nav_msgs</depend>
+  <depend>realtime_tools</depend>
+  <depend>roscpp</depend>
   <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
   <depend>std_srvs</depend>
   <depend>tf</depend>
   <depend>urdf</depend>

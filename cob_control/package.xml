@@ -1,6 +1,6 @@
 <package format="2">
   <name>cob_control</name>
-  <version>0.6.10</version>
+  <version>0.6.11</version>
   <description>cob_control meta-package</description>
 
   <license>LGPL</license>
@@ -18,6 +18,7 @@
   <exec_depend>cob_cartesian_controller</exec_depend>
   <exec_depend>cob_collision_velocity_filter</exec_depend>
   <exec_depend>cob_control_mode_adapter</exec_depend>
+  <exec_depend>cob_control_msgs</exec_depend>
   <exec_depend>cob_footprint_observer</exec_depend>
   <exec_depend>cob_frame_tracker</exec_depend>
   <exec_depend>cob_model_identifier</exec_depend>
@@ -25,6 +26,7 @@
   <exec_depend>cob_omni_drive_controller</exec_depend>
   <exec_depend>cob_trajectory_controller</exec_depend>
   <exec_depend>cob_twist_controller</exec_depend>
+  <exec_depend>cob_undercarriage_ctrl_node</exec_depend>
 
   <export>
     <metapackage/>

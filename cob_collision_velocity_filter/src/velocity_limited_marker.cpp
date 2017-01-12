@@ -80,7 +80,7 @@ VelocityLimitedMarker::VelocityLimitedMarker()
     nh_ = ros::NodeHandle("~");
 
     // read parameters from parameter server
-    nh_.param("marker_frame", base_frame_, std::string("/base_link"));
+    nh_.param("marker_frame", base_frame_, std::string("base_link"));
     nh_.param("marker_topic_name", topic_name_, std::string("velocity_limited_marker"));
     nh_.param("marker_lifetime", lifetime_, DEFAULT_LIFETIME);
     nh_.param("z_pos", z_pos_, DEFAULT_Z_POSITION);
